@@ -73,7 +73,24 @@ class _StatusState extends State<Status> {
               ),
             ],
           ),
-          Padding(padding: EdgeInsets.only(top: 10)),          
+          Padding(padding: EdgeInsets.only(top: 10)),
+          Expanded(
+              child: ListView.builder(
+                  itemCount: userName.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      leading: CircleAvatar(
+                          backgroundColor: lightGreenColor,
+                          child: CircleAvatar(
+                              backgroundImage: NetworkImage(userPic[index]),
+                              radius: 27),
+                          radius: 30),
+                      title:
+                          Text(userName[index], style: TextStyle(fontSize: 19)),
+                      subtitle: Text(chatMessage[index],
+                          style: TextStyle(fontSize: 16)),
+                    );
+                  }))
         ],
       ),
     );
