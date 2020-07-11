@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:whatsapp_clone/Color/colors.dart';
+import 'package:whatsapp_clone/Pages/chats.dart';
+import 'package:whatsapp_clone/Pages/status.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,6 +9,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  Widget appBarTitle = Text('WhatsApp');
+  Icon actionIcon = Icon(Icons.search, color: whiteLightColor);
 
   Choice _selectedChoice = choices[0];
   void _select(Choice choice){
@@ -25,7 +29,7 @@ class _HomePageState extends State<HomePage> {
         initialIndex: 1,
         child: Scaffold(
           appBar: AppBar(
-            title: Text('WhatsApp'),
+            title: appBarTitle,
             backgroundColor: primaryColor,
             bottom: TabBar(
               isScrollable: false,
@@ -38,7 +42,28 @@ class _HomePageState extends State<HomePage> {
               indicatorColor: whiteLightColor,
               ),
             actions: <Widget>[
-              IconButton(icon: Icon(Icons.search, color: whiteLightColor), onPressed: null),
+              IconButton(
+                icon: actionIcon,
+                onPressed:(){
+                  setState(() {
+                    if (this.actionIcon.icon == Icons.search){
+                      this.actionIcon = Icon(Icons.close,color: whiteLightColor);
+                      this.appBarTitle = TextField(
+                        style: TextStyle(
+                          color: whiteLightColor,
+                        ),
+                        decoration: InputDecoration(
+                          hintText: "Search...",
+                          hintStyle: TextStyle(color: whiteLightColor),
+                          focusColor: whiteDarkColor,
+                        )
+                      );
+                    }else{
+                      this.actionIcon = Icon(Icons.search);
+                      this.appBarTitle = Text("WhatsApp");
+                    }
+                  });
+                } ),
               PopupMenuButton(
                 onSelected: _select,
                 itemBuilder: (BuildContext context){
@@ -53,8 +78,8 @@ class _HomePageState extends State<HomePage> {
           body: TabBarView(
             children: [
               Icon(Icons.directions_car),
-              Icon(Icons.directions_transit),
-              Icon(Icons.directions_bike),
+              Chats(),
+              Status(),
               Icon(Icons.directions_bike),
             ]),
         ),
