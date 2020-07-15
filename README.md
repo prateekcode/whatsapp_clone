@@ -1,4 +1,4 @@
-# whatsapp_clone
+# Whatsapp Clone
 
 A new Flutter project.
 
